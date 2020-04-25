@@ -33,31 +33,40 @@ Route::get('about', function () {
 Route::group(['prefix' => 'admin'], function() {
     Route::get('', [
         'uses' => 'PostController@getAdminIndex',
-        'as' => 'admin.index'
+        'as' => 'admin.index',
+        'middleware'=>['auth']
     ]);
 
     Route::get('create', [
         'uses' => 'PostController@getAdminCreate',
-        'as' => 'admin.create'
+        'as' => 'admin.create',
+        'middleware'=>['auth']
     ]);
 
     Route::post('create', [
         'uses' => 'PostController@postAdminCreate',
-        'as' => 'admin.create'
+        'as' => 'admin.create',
+        'middleware'=>['auth']
     ]);
 
     Route::get('edit/{id}', [
         'uses' => 'PostController@getAdminEdit',
-        'as' => 'admin.edit'
+        'as' => 'admin.edit',
+        'middleware'=> ['auth']
     ]);
 
     Route::get('delete/{id}', [
         'uses' => 'PostController@getAdminDelete',
-        'as' => 'admin.delete'
+        'as' => 'admin.delete',
+        'middleware'=>['auth']
     ]);
 
     Route::post('edit', [
         'uses' => 'PostController@postAdminUpdate',
-        'as' => 'admin.update'
+        'as' => 'admin.update',
+        'middleware'=>['auth']
     ]);
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
